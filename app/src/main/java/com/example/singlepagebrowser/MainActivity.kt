@@ -6,7 +6,8 @@ import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.text.InputType
-import android.view.MotionEvent
+import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -67,6 +68,7 @@ class MainActivity : Activity() {
         setContentView(root)
 
         hideSystemBars()
+        installCornerHotspot(root)
 
         val url = savedUrl
         if (url.isNullOrBlank()) {
@@ -74,8 +76,6 @@ class MainActivity : Activity() {
         } else {
             webView.loadUrl(url)
         }
-
-        installTripleTapListener()
     }
 
     // ------------------------------------------------------------------ UI
@@ -138,26 +138,26 @@ class MainActivity : Activity() {
 
     // ------------------------------------------------- triple-tap on corner
 
-    private fun installTripleTapListener() {
-        webView.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                val cornerPx = CORNER_DP * resources.displayMetrics.density
-                val inCorner =
-                    event.x > webView.width - cornerPx && event.y < cornerPx
-
-                if (inCorner) {
-                    val now = System.currentTimeMillis()
-                    tapCount = if (now - lastTapTime < TAP_TIMEOUT_MS) tapCount + 1 else 1
-                    lastTapTime = now
-                    if (tapCount >= 3) {
-                        tapCount = 0
-                        showUrlDialog(initialSetup = false)
-                    }
-                } else {
-                    tapCount = 0
-                }
+    /**
+     * A transparent clickable zone in the top-right corner, laid OVER the WebView.
+     * Unlike a touch listener on the WebView itself, this always receives taps,
+     * even if the page has interactive elements in that corner.
+     */
+    private fun installCornerHotspot(root: FrameLayout) {
+        val cornerPx = (CORNER_DP * resources.displayMetrics.density).toInt()
+        val hotspot = View(this)
+        root.addView(
+            hotspot,
+            FrameLayout.LayoutParams(cornerPx, cornerPx, Gravity.TOP or Gravity.END)
+        )
+        hotspot.setOnClickListener {
+            val now = System.currentTimeMillis()
+            tapCount = if (now - lastTapTime < TAP_TIMEOUT_MS) tapCount + 1 else 1
+            lastTapTime = now
+            if (tapCount >= 3) {
+                tapCount = 0
+                showUrlDialog(initialSetup = false)
             }
-            false // let WebView receive the event as usual
         }
     }
 
@@ -214,7 +214,7 @@ class MainActivity : Activity() {
     companion object {
         private const val PREFS = "app"
         private const val KEY_URL = "url"
-        private const val CORNER_DP = 100f
-        private const val TAP_TIMEOUT_MS = 500L
+        private const val CORNER_DP = 120f
+        private const val TAP_TIMEOUT_MS = 600L
     }
 }
