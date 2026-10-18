@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Умный дом</string>
+    <string name="dialog_title">Адрес страницы</string>
+    <string name="dialog_message">Введите URL, который будет открываться при запуске.</string>
+    <string name="dialog_hint">https://example.com</string>
+    <string name="dialog_save">Сохранить</string>
+    <string name="dialog_cancel">Отмена</string>
+    <string name="dialog_invalid_url">Некорректный адрес</string>
+    <string name="error_no_connection">Не удалось загрузить страницу. Проверьте интернет и нажмите «Повторить».</string>
+    <string name="error_retry">Повторить</string>
+</resources>
