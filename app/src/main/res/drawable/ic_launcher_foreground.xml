@@ -3,10 +3,30 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- White house silhouette with door cutout -->
+    <!-- Chimney (black, merges with roof) -->
     <path
-        android:fillColor="#FFFFFF"
-        android:fillType="evenOdd"
-        android:pathData="M34,84 V56 L54,34 L74,56 V84 Z
-                          M48,84 V68 h12 v16 Z" />
+        android:fillColor="#000000"
+        android:pathData="M20,46 V21 Q20,13.5 28,13.5 H32 Q34.5,13.5 34.5,19 V46 Z" />
+    <!-- House body with roof, rounded eaves and corners (black) -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M9,43.5 L52,14.8 Q54,13 56,14.8 L99,43.5
+                         Q101,44.8 98.8,45.6 L91.2,45.6 L91.2,96
+                         Q91.2,102.5 84.5,102.5 L23.5,102.5
+                         Q16.8,102.5 16.8,96 L16.8,45.6 L9.2,45.6
+                         Q7,44.8 9,43.5 Z" />
+    <!-- Power button: white broken ring -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M59.87,52.46 A12.5,12.5 0 1,1 48.13,52.46" />
+    <!-- Power button: vertical line -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"
+        android:pathData="M54,46.5 V57" />
 </vector>
